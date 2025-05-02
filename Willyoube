@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will you be my girlfriend?</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ffeef2, #ffd6e7);
+      overflow: hidden;
+      padding-top: 100px;
+      transition: all 0.5s ease;
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, #ffffff66 0%, transparent 70%);
+      animation: shimmer 8s infinite linear;
+      z-index: 0;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #d63384;
+      margin-bottom: 20px;
+      font-weight: bold;
+      position: relative;
+      z-index: 1;
+      animation: fadeInDown 1s ease-out;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .button-container {
+      margin-top: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ribbon {
+      background: #ffcce6;
+      display: inline-block;
+      padding: 15px 30px;
+      border: 3px solid #ff99cc;
+      border-radius: 50px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #d63384;
+      box-shadow: 0 0 20px #ffb6c1;
+      margin: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: bounce 2s infinite;
+    }
+
+    .ribbon:hover {
+      background: #ff99cc;
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #ff66a3;
+    }
+
+    #message {
+      margin-top: 50px;
+      font-size: 2em;
+      color: #ff66a3;
+      animation: fadeZoom 1s ease-in;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 10px #fff;
+      font-weight: bold;
+    }
+
+    .sad {
+      background: linear-gradient(#ccc, #999);
+    }
+
+    .sad h1, .sad .ribbon, .sad #message {
+      color: #444 !important;
+      text-shadow: none;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeZoom {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .emoji-heart {
+      position: absolute;
+      font-size: 2.5em;
+      animation: floatUp 8s linear infinite;
+      pointer-events: none;
+      opacity: 0.8;
+      z-index: 0;
+      filter: drop-shadow(0 0 5px #fff);
+    }
+
+    .glow {
+      text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff99cc;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 15px #ff69b4; }
+      50% { text-shadow: 0 0 30px #ff99cc; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Will you be my girlfriend?</h1>
+  <div class="button-container">
+    <div class="ribbon" onclick="showYes()">Yes</div>
+    <div class="ribbon" onclick="showNo()">No</div>
+  </div>
+  <div id="message"></div>
+
+  <script>
+    function clearHearts() {
+      document.querySelectorAll(".emoji-heart").forEach(el => el.remove());
+    }
+
+    function addHearts(symbol) {
+      clearHearts();
+      for (let i = 0; i < 40; i++) {
+        const emoji = document.createElement("div");
+        emoji.className = "emoji-heart";
+        emoji.innerText = symbol;
+
+        emoji.style.left = Math.random() * 100 + "vw";
+        emoji.style.animationDuration = (5 + Math.random() * 5) + "s";
+        emoji.style.fontSize = (Math.random() * 15 + 20) + "px";
+        emoji.style.animationDelay = (Math.random() * 5) + "s";
+        emoji.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+        document.body.appendChild(emoji);
+      }
+    }
+
+    function showYes() {
+      document.body.classList.remove('sad');
+      const msg = document.getElementById("message");
+      msg.innerHTML = "ILOVEYOUSOMUCHKYLIEE💞";
+      msg.classList.add("glow");
+      msg.style.animation = "fadeZoom 1s ease-in";
+      addHearts("💞");
+    }
+
+    function showNo() {
+      document.body.classList.add('sad');
+      const msg = document.getElementById("message");
+      msg.innerHTML = "awww… maybe next time...";
+      msg.classList.remove("glow");
+      msg.style.animation = "fadeZoom 1s ease-in";
+      addHearts("💔");
+    }
+
+    // Initial floating hearts
+    addHearts("💞");
+  </script>
+</body>
+</html>
